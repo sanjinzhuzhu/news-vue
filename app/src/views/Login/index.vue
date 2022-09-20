@@ -28,10 +28,14 @@
         ]"
       />
       <div style="margin: 16px">
-        <van-button round block type="info" native-type="submit"
-        :disabled="isloading"
-        :loading="isloading"
-        loading-text="登录中..."
+        <van-button
+          round
+          block
+          type="info"
+          native-type="submit"
+          :disabled="isloading"
+          :loading="isloading"
+          loading-text="登录中..."
           >登录</van-button
         >
       </div>
@@ -41,33 +45,32 @@
 
 <script>
 import { loginAPI } from "@/api";
-import { Notify } from 'vant';
-import{setToken} from '@/utils/token.js'
+import { Notify } from "vant";
+import { setToken } from "@/utils/token.js";
 export default {
   data() {
     return {
       user: {
-        mobile: '',
-        code: '',
+        mobile: "",
+        code: "",
       },
-      isloading:false//因为这个默认是true，这样一上来就会加载，所以默认先不加载
+      isloading: false, //因为这个默认是true，这样一上来就会加载，所以默认先不加载
     };
   },
   methods: {
     async onSubmit(values) {
       console.log("submit", values);
       console.log(this.user);
-      this.isloading= true
+      this.isloading = true;
       try {
-         const res = await loginAPI(this.user);
-      console.log(res);
-      Notify({ type: 'success', message: '登录成功啦' });
-      setToken(res.data.data.token)
+        const res = await loginAPI(this.user);
+        console.log(res);
+        Notify({ type: "success", message: "登录成功啦" });
+        setToken(res.data.data.token);
       } catch (error) {
-        Notify({ type: 'danger', message: '账户或密码不正确' });
+        Notify({ type: "danger", message: "账户或密码不正确" });
       }
-     this.isloading=false
-     
+      this.isloading = false;
     },
   },
 };
