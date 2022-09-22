@@ -11,8 +11,8 @@
         :rules="[
           {
             required: true,
-            message: '请输入11位手机号',
-            pattern: /^1[2-9]\d{9}$/,
+            message: '请输入11位有效手机号',
+            pattern: /^1[3-9]\d{9}$/,
           },
         ]"
       />
@@ -67,8 +67,12 @@ export default {
         console.log(res);
         Notify({ type: "success", message: "登录成功啦" });
         setToken(res.data.data.token);
+        // [登录成功后就跳转到home主页]压栈，有历史记录，可以回退，raplce是替换，不会回退
+        this.$router.replace({
+          path: "/layout/home",
+        });
       } catch (error) {
-        Notify({ type: "danger", message: "账户或密码不正确" });
+        Notify({ type: "danger", message: "密码必须是246810" });
       }
       this.isloading = false;
     },

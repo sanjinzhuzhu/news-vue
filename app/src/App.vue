@@ -10,7 +10,7 @@ export default {
   async created() {
     try {
       const res = await getAllChannelsAPI();
-      console.log(res);
+      // console.log(res);
     } catch (err) {
       //console.dir()详细打印
       console.dir(err);
