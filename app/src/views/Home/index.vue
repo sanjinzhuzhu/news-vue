@@ -11,12 +11,20 @@
       </van-nav-bar>
       <!-- tab栏导航 -->
       <div class="main">
-        <van-tabs v-model="active" animated sticky offset-top="1.226667rem">
+        <van-tabs
+          v-model="channel_id"
+          @change="channelChangeFn"
+          animated
+          sticky
+          offset-top="1.226667rem"
+        >
           <van-tab
             :title="obj.name"
             v-for="obj in userChannelList"
             :key="obj.id"
-            ><ArticleIist :list="articleList"></ArticleIist>
+            :name="obj.id"
+            >
+            <ArticleIist :channelId="channel_id"></ArticleIist>
           </van-tab>
         </van-tabs>
       </div>
@@ -25,14 +33,14 @@
 </template>
 
 <script>
-import { getUserChannelsAPI, getAllArticleListAPI } from "@/api";
+import { getUserChannelsAPI, /*getAllArticleListAPI */} from "@/api";
 import ArticleIist from "./components/ArticleIist";
 export default {
   data() {
     return {
-      active: 0,
+      channel_id: 0, //默认id是0，推荐
       userChannelList: [],
-      articleList:[]
+    //   articleList: [],
     };
   },
   async created() {
@@ -40,14 +48,18 @@ export default {
     const res = await getUserChannelsAPI();
     console.log(res);
     this.userChannelList = res.data.data.channels;
-
-    //文章列表
-    const res2 = await getAllArticleListAPI({
-      channel_id: 0,
-      timestamp: (new Date()).getTime()
-    })
-    console.log(res2);
-    this.articleList = res2.data.data.results
+    // this.channelChangeFn();
+  },
+  methods: {
+    async channelChangeFn() {//每次切换频道都需要重新请求数据
+      //文章列表
+    //   const res2 = await getAllArticleListAPI({
+    //     channel_id: this.channel_id,
+    //     timestamp: new Date().getTime(),
+    //   });
+    //   console.log(res2);
+    //   this.articleList = res2.data.data.results;
+    },
   },
   components: {
     ArticleIist,

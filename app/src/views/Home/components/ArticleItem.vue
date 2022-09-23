@@ -23,7 +23,7 @@
         <div>
           <span>{{artObj.aut_name}}</span>
           <span>{{artObj.comm_count}}</span>
-          <span>{{artObj.pubdate}}</span>
+          <span>{{formatTime(artObj.pubdate)}}</span>
         </div>
         <!-- 反馈按钮 -->
         <van-icon name="cross" />
@@ -33,10 +33,14 @@
 </template>
 
 <script>
+import {timeAgo} from '@/utils/date.js'//这个方法vue模版里没有所以，需要返回给data/method。才能在vue模版中使用
 export default {
   props:{
     artObj:Object//文章对象
-  }
+  },
+  methods:{
+      formatTime:timeAgo
+    }
 };
 </script>
 
