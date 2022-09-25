@@ -23,51 +23,112 @@
             v-for="obj in userChannelList"
             :key="obj.id"
             :name="obj.id"
-            >
+          >
             <ArticleIist :channelId="channel_id"></ArticleIist>
           </van-tab>
         </van-tabs>
+        <!-- 编辑频道图标 -->
+        <van-icon
+          name="plus"
+          size="0.37333334rem"
+          class="moreChannels"
+          @click="showPopup"
+        />
       </div>
     </div>
+    <!-- 频道管理弹出层 -->
+    <van-popup class="channel_popup" v-model="show" get-container="body"
+      ><ChannelEdit
+        :userList="userChannelList"
+        :unCheckList="unCheckChannelList"
+        @addChannelE="addChannelFn"
+      ></ChannelEdit
+    ></van-popup>
   </div>
 </template>
 
 <script>
-import { getUserChannelsAPI, /*getAllArticleListAPI */} from "@/api";
+import { getUserChannelsAPI, getAllChannelsAPI ,updateChannelsAPI} from "@/api";
 import ArticleIist from "./components/ArticleIist";
+import ChannelEdit from "./ChannelEdit.vue";
 export default {
   data() {
     return {
       channel_id: 0, //默认id是0，推荐
       userChannelList: [],
-    //   articleList: [],
+      allChannelList: [],
+      //   articleList: [],
+      show: false,
     };
   },
   async created() {
-    //频道列表
+    //用户频道列表
     const res = await getUserChannelsAPI();
     console.log(res);
     this.userChannelList = res.data.data.channels;
     // this.channelChangeFn();
+
+    //所有频道
+    const res2 = await getAllChannelsAPI();
+    console.log(res2);
+    this.allChannelList = res2.data.data.channels;
+
+
   },
   methods: {
-    async channelChangeFn() {//每次切换频道都需要重新请求数据
+    async channelChangeFn() {
+      //每次切换频道都需要重新请求数据
       //文章列表
-    //   const res2 = await getAllArticleListAPI({
-    //     channel_id: this.channel_id,
-    //     timestamp: new Date().getTime(),
-    //   });
-    //   console.log(res2);
-    //   this.articleList = res2.data.data.results;
+      //   const res2 = await getAllArticleListAPI({
+      //     channel_id: this.channel_id,
+      //     timestamp: new Date().getTime(),
+      //   });
+      //   console.log(res2);
+      //   this.articleList = res2.data.data.results;
     },
+    showPopup() {
+      this.show = true;
+    },
+    async addChannelFn(moreChannels){
+        this.userChannelList.push(moreChannels)
+        //添加完后还需要发请求带上添加的参数返回给后台，后台在接受到所有用户添加的在返回给用户端
+        const res = await updateChannelsAPI(this.userChannelList)
+    }
   },
   components: {
     ArticleIist,
+    ChannelEdit,
+  },
+
+  computed: {
+    unCheckChannelList() {
+      //收集更多频道 【遍历所有的频道，然后对比用户已选频道，如果没在已选频道出现的
+      //，就建立一个新数组，在filter方法收集。】
+      //filter 方法 【array.filter(function(currentValue,index,arr), thisValue)】
+      //   const newArr = this.allChannelList.filter(bigObj=> {
+      //     const index = this.userChannelList.findIndex(smallObj => {
+      //       return smallObj.id === bigObj.id;
+      //     })
+      //     if (index > -1) {
+      //       return false;
+      //     } else {
+      //       return true;
+      //     }
+      //   })
+      //   return newArr;
+
+      return this.allChannelList.filter(
+        (bigObj) =>
+          this.userChannelList.findIndex(
+            (smallObj) => smallObj.id === bigObj.id
+          ) === -1
+      );
+    },
   },
 };
 </script>
 
-<style>
+<style lang="less" scoped>
 .logo {
   width: 100px;
   height: 30px;
@@ -75,5 +136,22 @@ export default {
 
 .main {
   padding-top: 46px;
+}
+/* 设置 tabs 容器的样式 */
+/deep/ .van-tabs__wrap {
+  padding-right: 60px;
+  background-color: #fff;
+}
+
+/* // 设置小图标的样式 */
+.moreChannels {
+  position: fixed;
+  top: 62px;
+  right: 8px;
+  z-index: 999;
+}
+.channel_popup {
+  width: 100vw;
+  height: 100vh;
 }
 </style>
