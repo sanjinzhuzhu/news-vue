@@ -48,7 +48,11 @@
 </template>
 
 <script>
-import { getUserChannelsAPI, getAllChannelsAPI ,updateChannelsAPI} from "@/api";
+import {
+  getUserChannelsAPI,
+  getAllChannelsAPI,
+  updateChannelsAPI,
+} from "@/api";
 import ArticleIist from "./components/ArticleIist";
 import ChannelEdit from "./ChannelEdit.vue";
 export default {
@@ -72,28 +76,39 @@ export default {
     const res2 = await getAllChannelsAPI();
     console.log(res2);
     this.allChannelList = res2.data.data.channels;
-
-
   },
   methods: {
-    async channelChangeFn() {
+   async channelChangeFn() {
       //每次切换频道都需要重新请求数据
       //文章列表
-      //   const res2 = await getAllArticleListAPI({
-      //     channel_id: this.channel_id,
-      //     timestamp: new Date().getTime(),
-      //   });
-      //   console.log(res2);
-      //   this.articleList = res2.data.data.results;
+      // const res2 = await getAllArticleListAPI({
+      //   channel_id: this.channel_id,
+      //   timestamp: new Date().getTime(),
+      // });
+      // console.log(res2);
+      // this.articleList = res2.data.data.results;
     },
     showPopup() {
       this.show = true;
     },
-    async addChannelFn(moreChannels){
-        this.userChannelList.push(moreChannels)
-        //添加完后还需要发请求带上添加的参数返回给后台，后台在接受到所有用户添加的在返回给用户端
-        const res = await updateChannelsAPI(this.userChannelList)
-    }
+    async addChannelFn(moreChannels) {
+      this.userChannelList.push(moreChannels);
+      //添加完后还需要发请求带上添加的参数返回给后台，后台在接受到所有用户添加的在返回给用户端
+      const res = await updateChannelsAPI(this.userChannelList);
+
+    //   const newArr = this.userChannelList.filter((moreChannels) => moreChannels.id !== 0);
+    //   const theNewArr = newArr.map((moreChannels, index) => {
+    //     const newObj = { ...moreChannels }; // 拷贝(浅拷贝)
+    //     delete newObj.name;
+    //     newObj.seq = index;
+
+    //     return newObj; // 让map方法把新对象收集起来形成一个新数组
+    //   });
+    //   const res = await updateChannelsAPI({
+    //     channels: theNewArr,
+    //   });
+    //   console.log(res);
+    },
   },
   components: {
     ArticleIist,
