@@ -35,6 +35,13 @@ export const updateChannelsAPI = (channels) =>
         }
     })
 
+export const removeChannelAPI = ({ channel_id }) => request({
+    url: `/v1_0/user/channels/${channel_id }`,
+    method: 'DELETE',
+    params: {//参数,axios会帮拼接在url？后面(查询字符组串)
+    }
+})
+
 export const getAllArticleListAPI = ({ channel_id, timestamp }) => request({
     url: '/v1_0/articles',
     params: {
@@ -70,3 +77,4 @@ export const feedbackArticleReportAPI = ({ artId, type }) => {
         }
     })
 }
+

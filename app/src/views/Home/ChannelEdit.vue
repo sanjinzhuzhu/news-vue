@@ -3,7 +3,12 @@
     <!-- 弹出层的头部区域 -->
     <van-nav-bar title="频道管理">
       <template #right>
-        <van-icon name="cross" size="0.37333334rem" color="white" />
+        <van-icon
+          name="cross"
+          size="0.37333334rem"
+          color="white"
+          @click="closeFn"
+        />
       </template>
     </van-nav-bar>
     <!-- 我的频道 -->
@@ -21,16 +26,17 @@
       <van-row type="flex">
         <van-col
           span="6"
-          v-for="myArtChannels in userList"
-          :key="myArtChannels.id"
+          v-for="Obj in userList"
+          :key="Obj.id"
+          @click="removeChannelFn(Obj)"
         >
           <div class="channel-item van-hairline--surround">
-            {{ myArtChannels.name }}
+            {{ Obj.name }}
             <!-- 删除的徽标 -->
             <van-badge
               color="transparent"
               class="cross-badge"
-              v-show="isEdit && myArtChannels.id"
+              v-show="isEdit && Obj.id"
             >
               <template #content>
                 <van-icon
@@ -55,12 +61,12 @@
       <van-row type="flex">
         <van-col
           span="6"
-          v-for="moreChannels in unCheckList"
-          :key="moreChannels.id"
-          @click="moreFn(moreChannels)"
+          v-for="Obj in unCheckList"
+          :key="Obj.id"
+          @click="moreFn(Obj)"
         >
           <div class="channel-item van-hairline--surround">
-            {{ moreChannels.name }}
+            {{ Obj.name }}
           </div>
         </van-col>
       </van-row>
@@ -91,11 +97,26 @@ export default {
     editFn() {
       this.isEdit = !this.isEdit;
     },
-    moreFn(moreChannels){
-        if(this.isEdit ===true){
-            this.$emit('addChannelE',moreChannels)
+    moreFn(Obj) {
+      if (this.isEdit === true) {
+        this.$emit("addChannelE", Obj);
+      }
+    },
+    removeChannelFn(channelObj) {
+      if (this.isEdit === true) {
+        if (channelObj.id !== 0) {
+          this.$emit("removeChannelE", channelObj);
         }
-    }
+      } else {
+        //切换频道
+        this.$emit("closeE");
+        this.$emit("input", channelObj.id);
+      }
+    },
+    closeFn() {
+      this.$emit("closeE");
+      this.isEdit = false;
+    },
   },
 };
 </script>
