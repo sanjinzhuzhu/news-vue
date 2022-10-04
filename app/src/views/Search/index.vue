@@ -22,7 +22,7 @@
     </div>
     <!-- 搜索建议列表  -->
     <div class="sugg-list">
-      <div class="sugg-item" v-for="(str, index) in suggestList" :key="index" v-html="hightLightFn(str,kw) ">
+      <div class="sugg-item" v-for="(str, index) in suggestList" :key="index" v-html="highLightFn(str,kw) ">
         <!-- {{hightLightFn(str,kw) }} -->
       </div>
     </div>
@@ -56,7 +56,7 @@ export default {
         }, 300);
       }
     },
-    hightLightFn(originStr, target) {
+    highLightFn(originStr, target) {
       //记得返回 return给 hightLightFn
       return originStr.replace(
         target,
