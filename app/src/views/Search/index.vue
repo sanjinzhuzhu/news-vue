@@ -18,12 +18,38 @@
         background="#007BFF"
         shape="round"
         @input="inputFn"
+        @search="searchFn"
       />
     </div>
     <!-- 搜索建议列表  -->
     <div class="sugg-list">
-      <div class="sugg-item" v-for="(str, index) in suggestList" :key="index" v-html="highLightFn(str,kw) ">
+      <div
+        class="sugg-item"
+        v-for="(str, index) in suggestList"
+        :key="index"
+        v-html="highLightFn(str, kw)"
+      >
         <!-- {{hightLightFn(str,kw) }} -->
+      </div>
+    </div>
+    <!-- 搜索历史 -->
+    <div class="search-history">
+      <!-- 标题 -->
+      <van-cell title="搜索历史">
+        <!-- 使用 right-icon 插槽来自定义右侧图标 -->
+        <template #right-icon>
+          <van-icon name="delete" class="search-icon" />
+        </template>
+      </van-cell>
+
+      <!-- 历史列表 -->
+      <div class="history-list">
+        <span
+          class="history-item"
+          v-for="(str, index) in history"
+          :key="index"
+          >{{ str }}</span
+        >
       </div>
     </div>
   </div>
@@ -39,6 +65,7 @@ export default {
       kw: "", // 搜索关键字
       timer: null, //防抖定时器
       suggestList: [],
+      history: ["API", "java", "css", "前端", "后台接口", "python"], // 搜索历史
     };
   },
   methods: {
@@ -56,12 +83,27 @@ export default {
         }, 300);
       }
     },
+    //匹配全局、忽略大小写、返回的结果不会被替换，可以返回一个函数
     highLightFn(originStr, target) {
       //记得返回 return给 hightLightFn
+      const reg = new RegExp(target, "ig"); // i忽略大小写,g全局匹配，如果使用变量，做正则的匹配条件
       return originStr.replace(
-        target,
-        `<span style="color:red;">${target}</span>`
+        //target,(1)
+        // /target/i,(2)x，
+        reg,
+        //match表示还用原来的字符，不会被替换掉，replace的替换结果，返回的是一个函数
+        (match, p1, p2, p3) => {
+          // console.log(match,p1,p2,p3);
+          return `<span style="color:skyblue;">${match}</span>`;
+        }
+        // `<span style="color:red;">${target}</span>`
       );
+    },
+    // 输入框搜索事件
+    searchFn() {
+      this.$router.push({
+        path: `/search_result/${this.kw}`,
+      });
     },
   },
 };
@@ -93,6 +135,23 @@ export default {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+}
+/**搜索历史 */
+.search-icon {
+  font-size: 16px;
+  line-height: inherit;
+}
+
+.history-list {
+  padding: 0 10px;
+  .history-item {
+    display: inline-block;
+    font-size: 12px;
+    padding: 8px 14px;
+    background-color: #efefef;
+    margin: 10px 8px 0px 8px;
+    border-radius: 10px;
   }
 }
 </style>
