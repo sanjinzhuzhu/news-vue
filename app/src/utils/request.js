@@ -3,7 +3,7 @@ import router from '@/router'
 import { Notify } from 'vant';
 import {getToken} from '@/utils/token'
 const axios = newAxios.create({
-    baseURL: 'http://geek.itheima.net/',
+    baseURL: 'http://toutiao.itheima.net/',
     timeout: 20000
 })
 

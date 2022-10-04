@@ -20,9 +20,11 @@
         @input="inputFn"
       />
     </div>
-    <!-- 搜索建议列表 -->
+    <!-- 搜索建议列表  -->
     <div class="sugg-list">
-      <div class="sugg-item" v-for="(str,index) in suggestList" :key="index">{{str}}</div>
+      <div class="sugg-item" v-for="(str, index) in suggestList" :key="index" v-html="hightLightFn(str,kw) ">
+        <!-- {{hightLightFn(str,kw) }} -->
+      </div>
     </div>
   </div>
 </template>
@@ -34,26 +36,32 @@ export default {
   name: "Search",
   data() {
     return {
-      kw: '', // 搜索关键字
+      kw: "", // 搜索关键字
       timer: null, //防抖定时器
-       suggestList: [],
+      suggestList: [],
     };
   },
   methods: {
     inputFn() {
-        
       clearTimeout(this.timer);
-      if(this.kw.length ===0){
-        this.suggestList =[]
-      }else{
-        this.timer = setTimeout(async()=>{
-            const res = await suggestListAPI({
-                keywords:this.kw
-            })
-            console.log(res);
-            this.suggestList = res.data.data.options
-        },300)
+      if (this.kw.length === 0) {
+        this.suggestList = [];
+      } else {
+        this.timer = setTimeout(async () => {
+          const res = await suggestListAPI({
+            keywords: this.kw,
+          });
+          console.log(res);
+          this.suggestList = res.data.data.options;
+        }, 300);
       }
+    },
+    hightLightFn(originStr, target) {
+      //记得返回 return给 hightLightFn
+      return originStr.replace(
+        target,
+        `<span style="color:red;">${target}</span>`
+      );
     },
   },
 };
