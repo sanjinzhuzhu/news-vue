@@ -3,9 +3,12 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import "amfe-flexible"
-import { NavBar, Form, Field, Button, Tabbar, TabbarItem, Icon, Tab, Tabs, Cell, List, PullRefresh, ActionSheet, Popup, Row, Col, Badge, Search } from 'vant'
-import vueConfig from 'vue.config'
+import { NavBar, Form, Field, Button, Tabbar, TabbarItem, Icon, Tab, Tabs, Cell, List, PullRefresh, ActionSheet, Popup, Row, Col, Badge, Search,Divider,CellGroup,Tag} from 'vant'
 
+Vue.use(CellGroup)
+Vue.use(Tag)
+
+Vue.use(Divider)
 Vue.use(Search)
 Vue.use(Badge)
 Vue.use(Row)
@@ -26,7 +29,9 @@ Vue.use(Tabbar);
 Vue.use(TabbarItem);
 
 Vue.config.productionTip = false
-let obj = {
+
+//使用vue use封装一个插件
+const directive = {
   install(Vue) {
     Vue.directive('fofo', {
       inserted(el) {
@@ -39,6 +44,7 @@ let obj = {
     })
   }
 }
+Vue.use(directive)
 // Vue.directive('fofo',{
 //   inserted(el){
 //     //指令所在van-search组件

@@ -5,7 +5,7 @@ import Layout from '@/views/Layout'
 import Home from '@/views/Home'
 import User from '@/views/User'
 import Search from '@/views/Search'
-
+import ArticleDetail from '@/views/ArticleDetail'
 Vue.use(VueRouter)
 
 const routes = [
@@ -35,6 +35,10 @@ const routes = [
     path: '/search',
     component: Search
   },
+  {//文章详情页
+    path:'/detail',
+    component:ArticleDetail
+  }
 ]
 
 const router = new VueRouter({

@@ -36,7 +36,7 @@ export const updateChannelsAPI = (channels) =>
     })
 
 export const removeChannelAPI = ({ channel_id }) => request({
-    url: `/v1_0/user/channels/${channel_id }`,
+    url: `/v1_0/user/channels/${channel_id}`,
     method: 'DELETE',
     params: {//参数,axios会帮拼接在url？后面(查询字符组串)
     }
@@ -77,4 +77,22 @@ export const feedbackArticleReportAPI = ({ artId, type }) => {
         }
     })
 }
+//联想菜单列表
+export const suggestListAPI = ({ keywords }) => request({
+    url: '/v1_0/suggestion',
+    // method:'GET',
+    params: {
+        q: keywords
+    }
+})
 
+
+//用户 个人资料
+export const userProfileAPI =()=>request({
+    url:'/v1_0/user/profile'
+})
+
+//用户 user资料
+export const getUserInfoAPI =()=>request({
+    url:'/v1_0/user'
+})

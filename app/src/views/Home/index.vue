@@ -5,6 +5,7 @@
         <template v-slot:left>
           <img class="logo" src="@/assets/toutiao_logo.png" alt="" />
         </template>
+        
         <template #right>
           <van-icon name="search" size="18" color="#fff" @click="moveSearchPageFn" />
         </template>

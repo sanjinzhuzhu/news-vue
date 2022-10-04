@@ -12,21 +12,49 @@
       />
       <!-- 搜索组件 -->
       <van-search
-      v-fofo
+        v-model.trim="kw"
+        v-fofo
         placeholder="请输入搜索关键词"
         background="#007BFF"
         shape="round"
+        @input="inputFn"
       />
+    </div>
+    <!-- 搜索建议列表 -->
+    <div class="sugg-list">
+      <div class="sugg-item" v-for="(str,index) in suggestList" :key="index">{{str}}</div>
     </div>
   </div>
 </template>
 
 <script>
+import { suggestListAPI } from "@/api";
+
 export default {
+  name: "Search",
   data() {
     return {
-      kw: "", // 搜索关键字
+      kw: '', // 搜索关键字
+      timer: null, //防抖定时器
+       suggestList: [],
     };
+  },
+  methods: {
+    inputFn() {
+        
+      clearTimeout(this.timer);
+      if(this.kw.length ===0){
+        this.suggestList =[]
+      }else{
+        this.timer = setTimeout(async()=>{
+            const res = await suggestListAPI({
+                keywords:this.kw
+            })
+            console.log(res);
+            this.suggestList = res.data.data.options
+        },300)
+      }
+    },
   },
 };
 </script>
@@ -44,6 +72,19 @@ export default {
   /*搜索组件*/
   .van-search {
     flex: 1;
+  }
+}
+/*搜索建议列表样式 */
+.sugg-list {
+  .sugg-item {
+    padding: 0 15px;
+    border-bottom: 1px solid #f8f8f8;
+    font-size: 14px;
+    line-height: 50px;
+    // 实现省略号的三行代码
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 </style>
