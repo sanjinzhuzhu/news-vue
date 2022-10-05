@@ -14,7 +14,7 @@
       <van-search
         v-model.trim="kw"
         v-fofo
-        placeholder="请输入搜索关键词"
+        placeholder="后台sql问题,只能搜索一个字符串"
         background="#007BFF"
         shape="round"
         @input="inputFn"
@@ -22,23 +22,24 @@
       />
     </div>
     <!-- 搜索建议列表  -->
-    <div class="sugg-list">
+    <div class="sugg-list" v-if="kw.length !== 0">
       <div
         class="sugg-item"
         v-for="(str, index) in suggestList"
         :key="index"
         v-html="highLightFn(str, kw)"
+        @click="suggestClickFn(str)"
       >
         <!-- {{hightLightFn(str,kw) }} -->
       </div>
     </div>
     <!-- 搜索历史 -->
-    <div class="search-history">
+    <div class="search-history" v-else>
       <!-- 标题 -->
       <van-cell title="搜索历史">
         <!-- 使用 right-icon 插槽来自定义右侧图标 -->
         <template #right-icon>
-          <van-icon name="delete" class="search-icon" />
+          <van-icon name="delete" class="search-icon" @click="clearFn" />
         </template>
       </van-cell>
 
@@ -48,6 +49,7 @@
           class="history-item"
           v-for="(str, index) in history"
           :key="index"
+          @click="historyClickFn(str)"
           >{{ str }}</span
         >
       </div>
@@ -65,7 +67,8 @@ export default {
       kw: "", // 搜索关键字
       timer: null, //防抖定时器
       suggestList: [],
-      history: ["API", "java", "css", "前端", "后台接口", "python"], // 搜索历史
+      //   history: ["API", "java", "css", "前端", "后台接口", "python"], // 搜索历史
+      history: JSON.parse(localStorage.getItem("his")) || [], //搜索历史 取的时候转化为数组
     };
   },
   methods: {
@@ -99,11 +102,56 @@ export default {
         // `<span style="color:red;">${target}</span>`
       );
     },
+    moveFn(theKw) {
+      //方式1 路径/值(前提:路由规则:变量名)，->接收:$route.params
+      //方式2 路径?/值->接收$route.query
+      //这两种方式都可以自己在path后面路径拼接
+      //还可以用$router.push配置项params和query让js代码内拼接
+
+      //这边的路由跳转应该在watch把任务执行完在进行跳转，所以需要在加一个定时器
+      setTimeout(() => {
+        this.$router.push({
+          path: `/search_result/${theKw}`,
+        });
+      }, 0);
+    },
     // 输入框搜索事件
     searchFn() {
-      this.$router.push({
-        path: `/search_result/${this.kw}`,
-      });
+      if (this.kw.length > 0) {
+        //保存到数组里
+        this.history.push(this.kw);
+        this.moveFn(this.kw);
+      }
+    },
+    suggestClickFn(str) {
+      //   this.$router.push({
+      //     path: `/search_result/${this.str}`,
+      //   });
+      this.history.push(str);
+      this.moveFn(str);
+    },
+    historyClickFn(str) {
+      //   this.$router.push({
+      //     path: `/search_result/${this.str}`,
+      //   });
+      this.moveFn(str);
+    },
+    
+    clearFn(){
+        this.history=[]
+    }
+  },
+  //使用watch将历史记录监听到本地
+  watch: {
+    history: {
+      deep: true,
+      handler() {
+        //   localStorage.setItem("his", this.history);浏览器只能存字符串，存不了数组
+        //set 无序不重复的value集合体
+        const thSet = new Set(this.history);
+        const arr = Array.from(thSet);
+        localStorage.setItem("his", JSON.stringify(arr));
+      },
     },
   },
 };

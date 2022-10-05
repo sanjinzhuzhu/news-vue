@@ -77,7 +77,7 @@ export const feedbackArticleReportAPI = ({ artId, type }) => {
         }
     })
 }
-//联想菜单列表
+//搜索联想建议
 export const suggestListAPI = ({ keywords }) => request({
     url: '/v1_0/suggestion',
     // method:'GET',
@@ -85,14 +85,22 @@ export const suggestListAPI = ({ keywords }) => request({
         q: keywords
     }
 })
-
+//搜索结果
+export const saerchResultAPI = ({ page = 1, per_page = 10, q }) => request({
+    url: '/v1_0/search',
+    params: {
+        page,
+        per_page,
+        q
+    }
+})
 
 //用户 个人资料
-export const userProfileAPI =()=>request({
-    url:'/v1_0/user/profile'
+export const userProfileAPI = () => request({
+    url: '/v1_0/user/profile'
 })
 
 //用户 user资料
-export const getUserInfoAPI =()=>request({
-    url:'/v1_0/user'
+export const getUserInfoAPI = () => request({
+    url: '/v1_0/user'
 })

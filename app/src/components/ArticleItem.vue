@@ -35,7 +35,7 @@
             <span>{{ formatTime(artObj.pubdate) }}</span>
           </div>
           <!-- 反馈按钮 -->
-          <van-icon name="cross" @click="show = true" />
+          <van-icon name="cross" @click="show = true" v-if="searchResultIconShow"/>
         </div>
       </template>
     </van-cell>
@@ -60,7 +60,11 @@ import { timeAgo } from "@/utils/date.js"; //这个方法vue模版里没有所�
 import { zeroActions, fristActions } from "@/api/report.js";
 export default {
   props: {
-    artObj: Object, //文章对象
+    artObj: Object, //文章对象  
+    searchResultIconShow:{
+      type:Boolean,
+      default:true
+    }
   },
   data() {
     return {
