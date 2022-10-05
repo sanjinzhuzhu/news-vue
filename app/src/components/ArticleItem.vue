@@ -1,29 +1,45 @@
 <template>
   <div>
     <!-- 一条文章单元格 -->
-    <van-cell>
+    <van-cell >
       <!-- 标题区域的插槽 -->
       <template #title>
         <div class="title-box">
           <!-- 标题 -->
           <span>{{ artObj.title }}</span>
           <!-- 单图片 -->
-          <img
+          <!-- <img
             v-if="artObj.cover.type === 1"
             class="thumb"
             :src="artObj.cover.images[0]"
             alt=""
-          />
+          /> -->
+          <van-image
+            v-if="artObj.cover.type === 1"
+            class="thumb"
+            :src="artObj.cover.images[0]"
+          >
+            <template v-slot:error>图片走丢了</template>
+          </van-image>
         </div>
         <!-- 多图片  用遍历-->
         <div class="thumb-box" v-if="artObj.cover.type > 1">
-          <img
+          <!-- <img
             v-for="(imgUrl, index) in artObj.cover.images"
             :key="index"
             class="thumb"
             :src="imgUrl"
             alt=""
-          />
+          /> -->
+          <van-image
+           v-for="(imgUrl, index) in artObj.cover.images"
+            :key="index"
+            class="thumb"
+            :src="imgUrl"
+            alt=""
+          >
+            <template v-slot:error>图片走丢了</template>
+          </van-image>
         </div>
       </template>
       <!-- label 区域的插槽 -->
@@ -35,7 +51,12 @@
             <span>{{ formatTime(artObj.pubdate) }}</span>
           </div>
           <!-- 反馈按钮 -->
-          <van-icon name="cross" @click="show = true" v-if="searchResultIconShow"/>
+          <van-icon
+            name="cross"
+            @click.stop="show = true"
+            v-if="searchResultIconShow"
+            get-container="body"
+          />
         </div>
       </template>
     </van-cell>
@@ -60,11 +81,11 @@ import { timeAgo } from "@/utils/date.js"; //这个方法vue模版里没有所�
 import { zeroActions, fristActions } from "@/api/report.js";
 export default {
   props: {
-    artObj: Object, //文章对象  
-    searchResultIconShow:{
-      type:Boolean,
-      default:true
-    }
+    artObj: Object, //文章对象
+    searchResultIconShow: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
@@ -88,9 +109,10 @@ export default {
       } else if (action.name === "不感兴趣") {
         this.$emit("disLikeE", this.artObj.art_id);
         this.show = false;
-      }else{//二级反馈fristActions
-        this.$emit("reportE", this.artObj.art_id,action.value)
-        this.show=false;
+      } else {
+        //二级反馈fristActions
+        this.$emit("reportE", this.artObj.art_id, action.value);
+        this.show = false;
       }
     },
     cancelFn() {
@@ -100,10 +122,11 @@ export default {
         this.bottomText = "取消";
       }
     },
-    closeFn(){
-      this.actions =zeroActions
-      this.bottomText ='取消'
-    }
+    closeFn() {
+      this.actions = zeroActions;
+      this.bottomText = "取消";
+    },
+  
   },
 };
 </script>

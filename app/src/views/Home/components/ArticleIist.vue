@@ -15,6 +15,7 @@
           :artObj="obj"
           @disLikeE="disLikeFn"
           @reportE="reportFn"
+          @click.native="itemClickFn(obj.art_id)"
         ></ArticleItem>
       </van-list>
     </van-pull-refresh>
@@ -148,6 +149,11 @@ export default {
       const res = await feedbackArticleReportAPI({ artId: id, type: value });
       console.log(res);
        Notify({ type: "success", message: "举报成功" });
+    },
+    itemClickFn(id) {
+      this.$router.push({
+        path:`/detail?art_id=${id}`
+      })
     },
   },
 };

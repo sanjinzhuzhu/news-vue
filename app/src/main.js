@@ -3,12 +3,13 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import "amfe-flexible"
-import { NavBar, Form, Field, Button, Tabbar, TabbarItem, Icon, Tab, Tabs, Cell, List, PullRefresh, ActionSheet, Popup, Row, Col, Badge, Search,Divider,CellGroup,Tag} from 'vant'
+import { NavBar, Form, Field, Button, Tabbar, TabbarItem, Icon, Tab, Tabs, Cell, List, PullRefresh, ActionSheet, Popup, Row, Col, Badge, Search,Divider,CellGroup,Tag,Image as VanImage} from 'vant'
 
-Vue.use(CellGroup)
-Vue.use(Tag)
 
 Vue.use(Divider)
+Vue.use(VanImage)
+Vue.use(CellGroup)
+Vue.use(Tag)
 Vue.use(Search)
 Vue.use(Badge)
 Vue.use(Row)

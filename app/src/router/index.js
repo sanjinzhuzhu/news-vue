@@ -38,7 +38,7 @@ const routes = [
   },
   {
     //搜索结果页
-    path:'/search_result/:kw',//需要动态路由传参
+    path:'/search_result/:kw',//需要动态路由传参(路径穿参)
     component:SearchResult
   },
   {//文章详情页

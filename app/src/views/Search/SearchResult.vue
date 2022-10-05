@@ -24,6 +24,7 @@
           :key="obj.art_id"
           :artObj="obj"
           :searchResultIconShow="false"
+          @click.native="itemClickFn(obj.art_id)"
         ></ArticleItem>
       </van-list>
     </div>
@@ -64,14 +65,20 @@ export default {
           page: this.page,
           q: this.$route.params.kw,
         });
-        if (res.data.data.results.length ===0){
-            //没有更多数据
-            this.finished = true
-            return
+        if (res.data.data.results.length === 0) {
+          //没有更多数据
+          this.finished = true;
+          return;
         }
         console.log(res); //记得将结果保存在vue体系中
-        this.articleList = [...this.articleList, ...res.data.data.results]
+        this.articleList = [...this.articleList, ...res.data.data.results];
+        this.loading = false
       }
+    },
+    itemClickFn(id) {
+      this.$router.push({
+        path:`/detail?art_id=${id}`
+      })
     },
   },
 };
@@ -81,5 +88,4 @@ export default {
 .search-result-container {
   padding-top: 46px;
 }
-
 </style>
