@@ -77,6 +77,10 @@ export const feedbackArticleReportAPI = ({ artId, type }) => {
         }
     })
 }
+
+export const detailAPI = ({ artId }) => request({
+    url: `/v1_0/articles/${artId}`
+})
 //搜索联想建议
 export const suggestListAPI = ({ keywords }) => request({
     url: '/v1_0/suggestion',

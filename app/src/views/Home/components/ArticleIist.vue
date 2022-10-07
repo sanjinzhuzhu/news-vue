@@ -150,6 +150,7 @@ export default {
       console.log(res);
        Notify({ type: "success", message: "举报成功" });
     },
+    //这里是通过params来实现的路由跳转穿参数，之后articledetail要注意用params
     itemClickFn(id) {
       this.$router.push({
         path:`/detail?art_id=${id}`

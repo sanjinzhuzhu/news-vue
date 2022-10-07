@@ -1,22 +1,38 @@
 <template>
   <div>
     <!-- Header 区域 -->
-    <van-nav-bar fixed title="文章详情" left-arrow @click-left="$router.back()" />
+    <van-nav-bar
+      fixed
+      title="文章详情"
+      left-arrow
+      @click-left="$router.back()"
+    />
 
     <!-- 文章信息区域 -->
     <div class="article-container">
       <!-- 文章标题 -->
-      <h1 class="art-title">小程序</h1>
+      <h1 class="art-title">{{ artObj.title }}</h1>
 
       <!-- 用户信息 -->
-      <van-cell center title="张三" label="3天前">
+      <van-cell
+        center
+        :title="artObj.aut_name"
+        :label="formatDate(artObj.pubdate)"
+      >
         <template #icon>
-          <img src="" alt="" class="avatar">
+          <img :src="artObj.aut_photo" alt="" class="avatar" />
         </template>
         <template #default>
           <div>
-            <van-button type="info" size="mini">已关注</van-button>
-            <van-button icon="plus" type="info" size="mini" plain>关注</van-button>
+            <van-button
+              type="info"
+              size="mini"
+              v-if="artObj.is_followed === true"
+              >已关注</van-button
+            >
+            <van-button icon="plus" type="info" size="mini" plain v-else
+              >关注</van-button
+            >
           </div>
         </template>
       </van-cell>
@@ -25,29 +41,51 @@
       <van-divider></van-divider>
 
       <!-- 文章内容 -->
-      <div class="art-content">好好学习, 天天向上</div>
+      <div class="art-content" v-html="artObj.content"></div>
 
       <!-- 分割线 -->
       <van-divider>End</van-divider>
 
       <!-- 点赞 -->
+      <!-- attitude:-1:无态度，0:不喜欢，1:点赞 -->
       <div class="like-box">
-        <van-button icon="good-job" type="danger" size="small">已点赞</van-button>
-        <van-button icon="good-job-o" type="danger" plain size="small">点赞</van-button>
+        <van-button
+          icon="good-job"
+          type="danger"
+          size="small"
+          v-if="artObj.attitute === 1"
+          >已点赞</van-button
+        >
+        <van-button icon="good-job-o" type="danger" plain size="small" v-else
+          >点赞</van-button
+        >
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { detailAPI } from "@/api";
+import {timeAgo} from "@/utils/date.js"
 export default {
-}
-</script>
-
-<script>
-export default {
-
-}
+  name: "Detail",
+  data(){
+      return{
+          artObj:{} //因为接口返回的是文章对象，所以这边也用对象容器去接
+      }
+  },
+ 
+  async created() {
+    const res = await detailAPI({
+      artId: this.$route.query.art_id, //articleitem组件中用query传的
+    });
+    console.log(res);
+    this.artObj= res.data.data
+  },
+  methods:{
+    formatDate: timeAgo
+  }
+};
 </script>
 
 <style scoped lang="less">
@@ -67,13 +105,13 @@ export default {
   width: 100%;
   overflow-x: scroll;
   word-break: break-all;
-    /deep/ img{
-    	width: 100%;
-  	}
-    /deep/ pre {
-        white-space: pre-wrap;
-        word-wrap: break-word;
-    }
+  /deep/ img {
+    width: 100%;
+  }
+  /deep/ pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
 }
 
 .van-cell {
