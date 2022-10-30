@@ -5,7 +5,7 @@
         <template v-slot:left>
           <img class="logo" src="@/assets/toutiao_logo.png" alt="" />
         </template>
-        
+
         <template #right>
           <van-icon name="search" size="18" color="#fff" @click="moveSearchPageFn" />
         </template>
@@ -25,7 +25,7 @@
             :key="obj.id"
             :name="obj.id"
           >
-            <ArticleIist :channelId="channel_id"></ArticleIist>
+            <ArticleList :channelId="channel_id"></ArticleList>
           </van-tab>
         </van-tabs>
         <!-- 编辑频道图标 -->
@@ -59,7 +59,7 @@ import {
   updateChannelsAPI,
   removeChannelAPI,
 } from "@/api";
-import ArticleIist from "./components/ArticleIist";
+import ArticleList from "./components/ArticleList.vue";
 import ChannelEdit from "./ChannelEdit.vue";
 
 export default {
@@ -68,7 +68,7 @@ export default {
       channel_id: 0, //默认id是0，推荐
       userChannelList: [],
       allChannelList: [],
-      //   articleList: [],
+        // articleList: [],
       show: false,
     };
   },
@@ -140,7 +140,7 @@ export default {
     }
   },
   components: {
-    ArticleIist,
+    ArticleList,
     ChannelEdit,
 
   },

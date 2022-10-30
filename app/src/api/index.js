@@ -12,6 +12,20 @@ export const loginAPI = ({ mobile, code }) =>
         }
     })
 
+export const userFollowedAPI = ({ userId }) => request({
+    url: '/v1_0/user/followings',
+    method: 'POST',
+    data: {
+        target: userId
+    }
+})
+
+export const userUnFollowedAPI = ({ userId }) => request({
+    url: `/v1_0/user/followings/${userId}`,
+    method: 'DELETE'
+
+})
+
 export const getAllChannelsAPI = () =>
     axios({
         url: '/v1_0/channels',
@@ -26,6 +40,7 @@ export const getUserChannelsAPI = () =>
             Authorization: `Bearer ${getToken()}`
         }
     })
+
 export const updateChannelsAPI = (channels) =>
     axios({
         url: '/v1_0/user/channels',
@@ -41,7 +56,7 @@ export const removeChannelAPI = ({ channel_id }) => request({
     params: {//参数,axios会帮拼接在url？后面(查询字符组串)
     }
 })
-
+//文章相关
 export const getAllArticleListAPI = ({ channel_id, timestamp }) => request({
     url: '/v1_0/articles',
     params: {
@@ -81,6 +96,65 @@ export const feedbackArticleReportAPI = ({ artId, type }) => {
 export const detailAPI = ({ artId }) => request({
     url: `/v1_0/articles/${artId}`
 })
+//文章
+export const likeArticleAPI = ({ artId }) => request({
+    url: '/v1_0/article/likings',
+    method: 'POST',
+    data: {
+        target: artId
+    }
+})
+
+export const unLikeArticleAPI = ({ artId }) => request({
+    url: `/v1_0/article/likings/${artId}`,
+    method: 'DELETE',
+    data: {
+        target: artId
+    }
+})
+//文章评论
+
+export const commentArticleAPI = ({ id, offset = null, limit = 10 }) => request({
+    url: '/v1_0/comments',
+    params: {
+        type: 'a',
+        source: id,
+        offset,
+        limit
+    }
+})
+// 评论喜欢
+export const commentLikingAPI = ({ comId }) => {
+    return request({
+        url: '/v1_0/comment/likings',
+        method: 'POST',
+        data: {
+            target: comId
+        }
+    })
+}
+//评论不喜欢
+export const commentDisLikingAPI = ({ comId }) => {
+    return request({
+        url: `/v1_0/comment/likings/${comId}`,
+        method: 'DELETE'
+    })
+}
+//文章 发布评论
+export const commentSendAPI = ({ id, content, art_id = null }) => {
+    const obj = {
+        target: id,
+        content
+    }
+    if (art_id !== null) { // 如果本次有第三个参数, 证明是对评论进行回复
+        obj.art_id = art_id
+    }
+    return request({
+        url: '/v1_0/comments',
+        method: 'POST',
+        data: obj
+    })
+}
 //搜索联想建议
 export const suggestListAPI = ({ keywords }) => request({
     url: '/v1_0/suggestion',
@@ -104,7 +178,9 @@ export const userProfileAPI = () => request({
     url: '/v1_0/user/profile'
 })
 
-//用户 user资料
-export const getUserInfoAPI = () => request({
-    url: '/v1_0/user'
-})
+// 用户 - 基本资料
+export const userInfoAPI = () => {
+    return request({
+        url: '/v1_0/user'
+    })
+}

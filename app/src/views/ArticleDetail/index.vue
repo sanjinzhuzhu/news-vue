@@ -28,9 +28,16 @@
               type="info"
               size="mini"
               v-if="artObj.is_followed === true"
+              @click="followedFn(true)"
               >已关注</van-button
             >
-            <van-button icon="plus" type="info" size="mini" plain v-else
+            <van-button
+              icon="plus"
+              type="info"
+              size="mini"
+              plain
+              v-else
+              @click="followedFn(false)"
               >关注</van-button
             >
           </div>
@@ -53,38 +60,94 @@
           icon="good-job"
           type="danger"
           size="small"
-          v-if="artObj.attitute === 1"
+          v-if="artObj.attitude === 1"
+          @click="loveFn(true)"
           >已点赞</van-button
         >
-        <van-button icon="good-job-o" type="danger" plain size="small" v-else
+        <van-button
+          icon="good-job-o"
+          type="danger"
+          plain
+          size="small"
+          v-else
+          @click="loveFn(false)"
           >点赞</van-button
         >
       </div>
+    </div>
+    <!-- 文章评论部分 -->
+    <div>
+      <CommentList></CommentList>
     </div>
   </div>
 </template>
 
 <script>
-import { detailAPI } from "@/api";
-import {timeAgo} from "@/utils/date.js"
+import {
+  detailAPI,
+  userFollowedAPI,
+  userUnFollowedAPI,
+  unLikeArticleAPI,
+  likeArticleAPI,
+} from "@/api";
+import { timeAgo } from "@/utils/date.js";
+import CommentList from "./CommentList";
 export default {
   name: "Detail",
-  data(){
-      return{
-          artObj:{} //因为接口返回的是文章对象，所以这边也用对象容器去接
-      }
+  data() {
+    return {
+      artObj: {}, //因为接口返回的是文章对象，所以这边也用对象容器去接
+    };
   },
- 
+
   async created() {
     const res = await detailAPI({
       artId: this.$route.query.art_id, //articleitem组件中用query传的
     });
     console.log(res);
-    this.artObj= res.data.data
+    this.artObj = res.data.data;
   },
-  methods:{
-    formatDate: timeAgo
-  }
+  methods: {
+    formatDate: timeAgo,
+    //关注，取消关注
+    async followedFn(bool) {
+      if (bool === true) {
+        //已关注->页面 -> 显示关注按钮
+        this.artObj.is_followed = false;
+        //业务-> 取关 ->调取关接口
+        const res = await userUnFollowedAPI({
+          userId: this.artObj.aut_id,
+        });
+        console.log(res);
+      } else {
+        this.artObj.is_followed = true;
+        const res = await userFollowedAPI({
+          userId: this.artObj.aut_id,
+        });
+        console.log(res);
+      }
+    },
+    //点赞/取消点赞
+    async loveFn(bool) {
+      if (bool === true) {
+        //user click 点赞-->显示点赞按钮
+        this.artObj.attitude = 0; //0不喜欢，-1无态度
+        const res = await unLikeArticleAPI({
+          artId: this.artObj.art_id,
+        });
+        console.log(res);
+      } else {
+        this.artObj.attitude = 1;
+        const res = await likeArticleAPI({
+          artId: this.artObj.art_id,
+        });
+        console.log(res);
+      }
+    },
+  },
+  components: {
+    CommentList,
+  },
 };
 </script>
 

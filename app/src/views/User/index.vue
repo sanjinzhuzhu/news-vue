@@ -1,15 +1,15 @@
 <template>
-  <div class="user-container">
+<div class="user-container">
     <!-- 用户基本信息面板 -->
     <div class="user-card">
       <!-- 用户头像、姓名 -->
       <van-cell>
         <!-- 使用 title 插槽来自定义标题 -->
         <template #icon>
-          <img src="" alt="" class="avatar" />
+          <img :src="user.photo" alt="" class="avatar">
         </template>
         <template #title>
-          <span class="username">用户名</span>
+          <span class="username">{{ user.name }}</span>
         </template>
         <template #label>
           <van-tag color="#fff" text-color="#007bff">申请认证</van-tag>
@@ -18,37 +18,37 @@
       <!-- 动态、关注、粉丝 -->
       <div class="user-data">
         <div class="user-data-item">
-          <span>0</span>
+          <span>{{ user.art_count }}</span>
           <span>动态</span>
         </div>
         <div class="user-data-item">
-          <span>0</span>
+          <span>{{ user.follow_count }}</span>
           <span>关注</span>
         </div>
         <div class="user-data-item">
-          <span>0</span>
+          <span>{{ user.fans_count }}</span>
           <span>粉丝</span>
         </div>
       </div>
     </div>
-
-    <!-- 操作面板 -->
-    <van-cell-group class="action-card">
-      <van-cell icon="edit" title="编辑资料" is-link />
-      <van-cell icon="chat-o" title="小思同学" is-link />
-      <van-cell icon="warning-o" title="退出登录" is-link />
-    </van-cell-group>
   </div>
 </template>
 
 <script>
 import { getUserInfoAPI } from "@/api";
+import { userInfoAPI } from '@/api'
 export default {
-  async create() {
-    const res = await getUserInfoAPI();
-    console.log(res);
+  data () {
+    return {
+      user: {} // 用户对象
+    }
   },
-};
+  async created () {
+    const res = await userInfoAPI()
+    console.log(res)
+    this.user = res.data.data
+  }
+}
 </script>
 
 <style scoped lang="less">
