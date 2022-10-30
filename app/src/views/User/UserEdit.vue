@@ -7,18 +7,29 @@
     <van-cell-group class="action-card">
       <van-cell title="头像" is-link center>
         <template #default>
-          <van-image round class="avatar" src=""/>
+          <van-image round class="avatar" :src="profile.photo"/>
         </template>
       </van-cell>
-      <van-cell title="名称" is-link  />
-      <van-cell title="生日" is-link  />
+      <van-cell title="名称" is-link :value="profile.name" />
+      <van-cell title="生日" is-link :value="profile.birthday" />
     </van-cell-group>
   </div>
 </template>
 
 <script>
+import { userProfileAPI } from '@/api'
 export default {
-  name: 'UserEdit'
+  name: 'UserEdit',
+  data () {
+    return {
+      profile: {} // 用户基本资料
+    }
+  },
+  async created () {
+    const res = await userProfileAPI()
+    console.log(res)
+    this.profile = res.data.data
+  }
 }
 </script>
 
