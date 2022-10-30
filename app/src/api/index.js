@@ -126,35 +126,35 @@ export const commentArticleAPI = ({ id, offset = null, limit = 10 }) => request(
 // 评论喜欢
 export const commentLikingAPI = ({ comId }) => {
     return request({
-        url: '/v1_0/comment/likings',
-        method: 'POST',
-        data: {
-            target: comId
-        }
+      url: '/v1_0/comment/likings',
+      method: 'POST',
+      data: {
+        target: comId
+      }
     })
-}
-//评论不喜欢
+  }
+  //评论不喜欢
 export const commentDisLikingAPI = ({ comId }) => {
     return request({
-        url: `/v1_0/comment/likings/${comId}`,
-        method: 'DELETE'
+      url: `/v1_0/comment/likings/${comId}`,
+      method: 'DELETE'
     })
-}
+  } 
 //文章 发布评论
 export const commentSendAPI = ({ id, content, art_id = null }) => {
     const obj = {
-        target: id,
-        content
+      target: id,
+      content
     }
     if (art_id !== null) { // 如果本次有第三个参数, 证明是对评论进行回复
-        obj.art_id = art_id
+      obj.art_id = art_id
     }
     return request({
-        url: '/v1_0/comments',
-        method: 'POST',
-        data: obj
+      url: '/v1_0/comments',
+      method: 'POST',
+      data: obj
     })
-}
+  }
 //搜索联想建议
 export const suggestListAPI = ({ keywords }) => request({
     url: '/v1_0/suggestion',
@@ -178,9 +178,14 @@ export const userProfileAPI = () => request({
     url: '/v1_0/user/profile'
 })
 
+//用户 user资料
+// export const getUserInfoAPI = () => request({
+//     url: '/v1_0/user'
+// })
+
 // 用户 - 基本资料
 export const userInfoAPI = () => {
     return request({
-        url: '/v1_0/user'
+      url: '/v1_0/user'
     })
-}
+  }

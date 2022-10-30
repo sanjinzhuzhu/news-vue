@@ -4,6 +4,7 @@ import Login from '@/views/Login'
 import Layout from '@/views/Layout'
 import Home from '@/views/Home'
 import User from '@/views/User'
+import UserEditor from '@/views/User/UserEdit'
 import Search from '@/views/Search'
 import SearchResult from '@/views/Search/SearchResult'
 import ArticleDetail from '@/views/ArticleDetail'
@@ -30,6 +31,7 @@ const routes = [
         path: 'user',
         component: User,
       },
+      
     ]
   },
   {
@@ -44,7 +46,12 @@ const routes = [
   {//文章详情页
     path:'/detail',
     component:ArticleDetail
-  }
+  },
+  //个人中心资料编辑
+  {
+    path: '/user_editor',
+    component: UserEditor
+ }
 ]
 
 const router = new VueRouter({

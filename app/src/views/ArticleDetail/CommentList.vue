@@ -13,6 +13,7 @@
         :finished="finished"
         finished-text="没有更多评论了, 请发表评论"
         @load="onLoad"
+        offset="50"
         :immediate-check="false"
       >
         <!-- 评论的 Item 项 -->
@@ -26,15 +27,25 @@
             </div>
             <!-- 头部右侧 -->
             <div class="cmt-header-right">
-              <van-icon name="like" size="16" color="red"  v-if="obj.is_liking === true"
-                @click="likeFn(true, obj)"/>
-              <van-icon name="like-o" size="16" color="gray"  v-else
-                @click="likeFn(false, obj)" />
+              <van-icon
+                name="like"
+                size="16"
+                color="red"
+                v-if="obj.is_liking === true"
+                @click="likeFn(true, obj)"
+              />
+              <van-icon
+                name="like-o"
+                size="16"
+                color="gray"
+                v-else
+                @click="likeFn(false, obj)"
+              />
             </div>
           </div>
           <!-- 主体区域 -->
           <div class="cmt-body">
-             {{ obj.content }}
+            {{ obj.content }}
           </div>
           <!-- 尾部区域 -->
           <div class="cmt-footer">{{ timeAgo(obj.pubdate) }}</div>
@@ -92,6 +103,7 @@ export default {
     return {
       commentList: [], //评论列表
       totalCount: 0,
+      offset: null, // 下一页(偏移id), 一定初始值null(第一页不需要传, axios遇到null忽略此参数)
       isShowCmtBox: true,
       comText: "",
       loading: false,
@@ -139,7 +151,6 @@ export default {
       });
     },
     async sendFn() {
-     
       const res = await commentSendAPI({
         id: this.$route.query.art_id,
         content: this.comText,
@@ -180,6 +191,16 @@ export default {
         this.loading = false;
       }
     },
+    // async getCommentListFn () {
+    //   const res = await commentListAPI({
+    //     artId: this.$route.query.aid,
+    //     offset: this.offset // 把offset偏移量带给后台
+    //   })
+    //   this.commentList = res.data.data.results
+    //   this.totalCount = res.data.data.total_count || ''
+    //   this.offset = res.data.data.last_id // 保存起来为了做分页
+    // }
+  
   },
 };
 </script>

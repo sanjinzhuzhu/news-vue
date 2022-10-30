@@ -1,12 +1,12 @@
 <template>
-<div class="user-container">
+  <div class="user-container">
     <!-- 用户基本信息面板 -->
     <div class="user-card">
       <!-- 用户头像、姓名 -->
       <van-cell>
         <!-- 使用 title 插槽来自定义标题 -->
         <template #icon>
-          <img :src="user.photo" alt="" class="avatar">
+          <img :src="user.photo" alt="" class="avatar" />
         </template>
         <template #title>
           <span class="username">{{ user.name }}</span>
@@ -31,24 +31,48 @@
         </div>
       </div>
     </div>
+    <!-- 操作面板 -->
+    <van-cell-group class="action-card">
+      <van-cell icon="edit" title="编辑资料" is-link to="/user_editor"/>
+      <van-cell icon="chat-o" title="小思同学" is-link />
+      <van-cell icon="warning-o" title="退出登录" is-link @click="quit" />
+    </van-cell-group>
   </div>
 </template>
 
 <script>
-import { getUserInfoAPI } from "@/api";
-import { userInfoAPI } from '@/api'
+import { userInfoAPI } from "@/api";
+import { mapMutations } from 'vuex'
+import { Dialog } from 'vant'
+
 export default {
-  data () {
+  data() {
     return {
-      user: {} // 用户对象
-    }
+      user: {}, // 用户对象
+    };
   },
-  async created () {
-    const res = await userInfoAPI()
-    console.log(res)
-    this.user = res.data.data
+  async created() {
+    const res = await userInfoAPI();
+    console.log(res);
+    this.user = res.data.data;
+  },
+  methods: {
+    ...mapMutations(['setToken']),
+    quit () {
+      Dialog.confirm({
+        title: '提示',
+        message: '这就走了?不爱我了吗?'
+      }).then(() => {
+        // 清空vuex和本地
+        this.setToken('')
+        // 跳到登录页
+        this.$router.replace('/login')
+      }).catch(() => {
+        // on cancel
+      })
+    }
   }
-}
+};
 </script>
 
 <style scoped lang="less">

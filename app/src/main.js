@@ -2,11 +2,18 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+
+
 import "amfe-flexible"
-import { NavBar, Form, Field, Button, Tabbar, TabbarItem, Icon, Tab, Tabs, Cell, List, PullRefresh, ActionSheet, Popup, Row, Col, Badge, Search, Divider, CellGroup, Tag, Image as VanImage } from 'vant'
+import {
+  NavBar, Form, Field, Button, Tabbar, TabbarItem, Icon, Tab, Tabs, Cell, List,
+  PullRefresh, ActionSheet, Popup, Row, Col, Badge, Search, Divider, CellGroup,
+  Tag, Image as VanImage,Image,
+} from 'vant'
 
-
+Vue.use(Image)
 Vue.use(Divider)
+
 Vue.use(VanImage)
 Vue.use(CellGroup)
 Vue.use(Tag)
@@ -84,5 +91,6 @@ Vue.use(directive)
 new Vue({
   router,
   store,
+
   render: h => h(App)
 }).$mount('#app')
