@@ -8,9 +8,11 @@ import "amfe-flexible"
 import {
   NavBar, Form, Field, Button, Tabbar, TabbarItem, Icon, Tab, Tabs, Cell, List,
   PullRefresh, ActionSheet, Popup, Row, Col, Badge, Search, Divider, CellGroup,
-  Tag, Image as VanImage,Image,
+  Tag, Image as VanImage,Image,Dialog,DatetimePicker
 } from 'vant'
 
+Vue.use(DatetimePicker)
+Vue.use(Dialog)
 Vue.use(Image)
 Vue.use(Divider)
 

@@ -8,6 +8,8 @@ import UserEditor from '@/views/User/UserEdit'
 import Search from '@/views/Search'
 import SearchResult from '@/views/Search/SearchResult'
 import ArticleDetail from '@/views/ArticleDetail'
+import Chat from '@/views/Chat'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -22,7 +24,7 @@ const routes = [
   {
     path: '/layout',
     component: Layout,
-    children:[
+    children: [
       {
         path: 'home',
         component: Home,
@@ -31,7 +33,7 @@ const routes = [
         path: 'user',
         component: User,
       },
-      
+
     ]
   },
   {
@@ -40,18 +42,22 @@ const routes = [
   },
   {
     //搜索结果页
-    path:'/search_result/:kw',//需要动态路由传参(路径穿参)
-    component:SearchResult
+    path: '/search_result/:kw',//需要动态路由传参(路径穿参)
+    component: SearchResult
   },
   {//文章详情页
-    path:'/detail',
-    component:ArticleDetail
+    path: '/detail',
+    component: ArticleDetail
   },
   //个人中心资料编辑
   {
     path: '/user_editor',
     component: UserEditor
- }
+  },
+  {
+    path: '/chat',
+    component: Chat
+  }
 ]
 
 const router = new VueRouter({

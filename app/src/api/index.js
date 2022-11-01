@@ -203,3 +203,15 @@ export const updatePhotoAPI = (formObj) => {
         // 如果你的请求体内容是表单对象, 浏览器会自动携带请求头Content-Type为multipart/form-data
     })
 }
+
+// 用户 - 更新资料
+export const updateProfileAPI= ({ birthday, userName }) => {
+    return request({
+        url: '/v1_0/user/profile',
+        method: 'PATCH',
+        data: {
+            birthday: birthday,
+            name: userName
+        }
+    })
+}
