@@ -55,9 +55,9 @@
     <!-- 发表评论的容器 -->
     <div>
       <!-- 底部添加评论区域 - 1 (短) -->
-      <div class="add-cmt-box van-hairline--top" v-if="isShowCmtBox === true">
+      <div class="add-cmt-box van-hairline--top" v-if="isShowCmtBox === false">
         <van-icon name="arrow-left" size="0.48rem" @click="$router.back()" />
-        <div class="ipt-cmt-div" @click="toggleShowFn">发表评论</div>
+        <div class="ipt-cmt-div" @click="isShowCmtInput = true">发表评论</div>
         <div class="icon-box">
           <van-badge :content="totalCount === 0 ? '' : totalCount" max="99">
             <van-icon

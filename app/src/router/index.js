@@ -5,6 +5,7 @@ import Layout from '@/views/Layout'
 import Home from '@/views/Home'
 import User from '@/views/User'
 import UserEditor from '@/views/User/UserEdit'
+import UserStudy from '@/views/User/UserStudy'
 import Search from '@/views/Search'
 import SearchResult from '@/views/Search/SearchResult'
 import ArticleDetail from '@/views/ArticleDetail'
@@ -54,6 +55,12 @@ const routes = [
     path: '/user_editor',
     component: UserEditor
   },
+  //学习
+  {
+    path: '/user_study',
+    component: UserStudy
+  },
+  //小思同学
   {
     path: '/chat',
     component: Chat
