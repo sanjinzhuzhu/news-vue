@@ -6,6 +6,7 @@ import Home from '@/views/Home'
 import User from '@/views/User'
 import UserEditor from '@/views/User/UserEdit'
 import UserStudy from '@/views/User/UserStudy'
+import Study from '@/views/Study'
 import Search from '@/views/Search'
 import SearchResult from '@/views/Search/SearchResult'
 import ArticleDetail from '@/views/ArticleDetail'
@@ -59,6 +60,11 @@ const routes = [
   {
     path: '/user_study',
     component: UserStudy
+  },
+  //
+  {
+    path: '/study',
+    component:Study
   },
   //小思同学
   {
