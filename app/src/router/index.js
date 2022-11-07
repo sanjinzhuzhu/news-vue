@@ -64,7 +64,7 @@ const routes = [
   //
   {
     path: '/study',
-    component:Study
+    component: Study
   },
   //小思同学
   {
