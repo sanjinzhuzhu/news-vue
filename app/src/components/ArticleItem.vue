@@ -52,7 +52,7 @@
           </div>
           <!-- 反馈按钮 -->
           <van-icon
-            name="cross"
+            name="smile-o"
             @click.stop="show = true"
             v-if="searchResultIconShow"
             get-container="body"

@@ -8,8 +8,11 @@ import "amfe-flexible"
 import {
   NavBar, Form, Field, Button, Tabbar, TabbarItem, Icon, Tab, Tabs, Cell, List,
   PullRefresh, ActionSheet, Popup, Row, Col, Badge, Search, Divider, CellGroup,
-  Tag, Image as VanImage,Image,Dialog,DatetimePicker,Collapse, CollapseItem
+  Tag, Image as VanImage,Image,Dialog,DatetimePicker,Collapse, CollapseItem,CountDown,Grid,GridItem
 } from 'vant'
+Vue.use(GridItem)
+Vue.use(Grid)
+Vue.use(CountDown)
 Vue.use(CollapseItem)
 Vue.use(Collapse)
 Vue.use(DatetimePicker)
