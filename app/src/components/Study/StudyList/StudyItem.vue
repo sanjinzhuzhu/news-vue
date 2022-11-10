@@ -1,7 +1,7 @@
 <template>
     <div>
         <van-cell-group>
-            <van-cell icon="fire" fixed>{{ item.title }} <a href="#" @click="clickHandler(item.id, $event)">加入购物车</a>
+            <van-cell icon="fire" fixed>{{ item.title }} <a href="#" @click="clickHandler(item.id, $event)"> detail</a>
             </van-cell>
         </van-cell-group>
     </div>

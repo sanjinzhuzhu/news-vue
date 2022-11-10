@@ -6,6 +6,7 @@ import Home from '@/views/Home'
 import User from '@/views/User'
 import UserEditor from '@/views/User/UserEdit'
 import UserStudy from '@/components/UserStudy'
+import MyFavorite from '@/components/MyFavorite'
 import Study from '@/components/Study'
 import Search from '@/views/Search'
 import SearchResult from '@/views/Search/SearchResult'
@@ -60,6 +61,10 @@ const routes = [
   {
     path: '/user_study',
     component: UserStudy
+  },
+  {
+    path: '/my_favorite',
+    component: MyFavorite
   },
   //
   {

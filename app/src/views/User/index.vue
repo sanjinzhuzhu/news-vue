@@ -34,7 +34,7 @@
     <!-- 操作面板 -->
     <van-cell-group class="action-card">
       <van-cell icon="fire" title="学习中心" is-link to="/study"/>
-      <van-cell icon="like-o" title="兴趣空间" is-link to="/user_study"/>
+      <van-cell icon="like-o" title="兴趣空间" is-link to="/my_favorite"/>
       <van-cell icon="edit" title="编辑资料" is-link to="/user_editor"/>
       <van-cell icon="chat-o" title="小思同学" is-link to="/chat"/>
       <van-cell icon="warning-o" title="退出登录" is-link @click="quit" />
