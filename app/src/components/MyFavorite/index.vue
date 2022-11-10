@@ -2,8 +2,8 @@
   <div>
     <van-nav-bar title="My favorite" left-arrow @click-left="$router.back()" />
     <AddEvent/>
-    <StatesEvent/>
     <ToDoList/>
+    <StatesEvent/>
   </div>
 </template>
 
