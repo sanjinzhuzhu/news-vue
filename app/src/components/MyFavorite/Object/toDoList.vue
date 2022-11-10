@@ -1,15 +1,20 @@
 <template>
-  <div>toDoList
-    <toDoItem/>
-  </div>
- 
+    <div>
+        <ul class="ToDoList">
+            <toDoItem />
+            <toDoItem />
+            <toDoItem />
+            <toDoItem />
+        </ul>
+    </div>
+
 </template>
 
 <script>
 import toDoItem from './toDoItem.vue';
 export default {
-name:'toDoList',
-components:{toDoItem}
+    name: 'toDoList',
+    components: { toDoItem }
 }
 </script>
 

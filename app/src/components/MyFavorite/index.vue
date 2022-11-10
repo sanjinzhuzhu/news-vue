@@ -1,9 +1,15 @@
 <template>
   <div>
     <van-nav-bar title="My favorite" left-arrow @click-left="$router.back()" />
-    <AddEvent/>
-    <ToDoList/>
-    <StatesEvent/>
+    <div id="root">
+      <div class="todo-container">
+        <div class="todo-wrap">
+          <addEvent />
+          <ToDoList />
+          <StatesEvent />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
