@@ -5,6 +5,7 @@
 </template>
 
 <script>
+
 import { getAllChannelsAPI } from "@/api";
 export default {
   async created() {
@@ -17,6 +18,7 @@ export default {
     }
   },
 };
+
 </script>
 
 <style lang="less">

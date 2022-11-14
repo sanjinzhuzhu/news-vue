@@ -1,19 +1,36 @@
 <template>
     <div>
-        <li>
-            <input type="checkbox">
-            <label>
-                <span>xxx</span>
-            </label>
-            <button class="btn btn-danger" style="dispaly:none">删除</button>
-        </li>
+        <van-cell>
+            <li>
+                <input type="checkbox" :checked="todo.done" @change="handleCheck(todo.id)">
+                <label>
+                    <span>{{ todo.title }}</span>
+                </label>
+                <button class="btn btn-danger"
+                    style="dispaly:none ;color: #fff;background-color: #da4f49;border: 1px solid #bd362f;font-size:14px;line-height:15px;text-align: center;vertical-align: middle;box-shadow: inset 0 1px 0 rgba(255,255,255,0.2) rgba(0,0,0,0.5);border-radius: 4px;">删除</button>
+            </li>
+        </van-cell>
     </div>
 </template>
 
 <script>
+
 export default {
-    name: 'toDoItem'
+    name: 'toDoItem',
+    props: ['todo', 'checkTodo'],
+    // mounted(){
+    //     console.log(this.todo);
+    methods: {
+        handleCheck(id) {
+            //通知index将对应的todo对象的done值取反
+            //1.数据在index页面，那么操作数据的方法也在index的method
+            //2.修改todo状态，收到id，然后取反done值
+            //3.把参数供给儿子，在到孙子，index-->list--->item
+            this.checkTodo(id)
+        }
+    }
 }
+
 </script>
 
 <style>
@@ -26,7 +43,7 @@ li {
 }
 
 li label {
-    float: left;
+    /* float: left; */
     cursor: pointer;
 }
 
@@ -38,15 +55,16 @@ li label li input {
 }
 
 li button {
-    /* float: right; */
+    float: right;
     /* display: none; */
-    margin-top: 3px;
+    margin-top: 5px 3px;
 }
 
 li:before {
     content: initial;
 }
-li :last-child{
-    border-bottom: none;
+
+li :last-child {
+    /* border-bottom: none; */
 }
 </style>

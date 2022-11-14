@@ -1,4 +1,5 @@
 <template>
+    <van-cell>
   <div class="StatesEvent">
     <label >
         <input type="checkbox">
@@ -8,6 +9,7 @@
     </span>
     <button class="btn btn-danger">清除已完成任务</button>
   </div>
+</van-cell>
 </template>
 
 <script>
