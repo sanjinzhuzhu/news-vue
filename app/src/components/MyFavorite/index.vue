@@ -5,7 +5,7 @@
       <div class="todo-container">
         <div class="todo-wrap">
           <addEvent :addTodo="addTodo" />
-          <ToDoList :todos="todos" :checkTodo="checkTodo"/>
+          <ToDoList :todos="todos" :checkTodo="checkTodo" :del="del"/>
           <StatesEvent />
         </div>
       </div>
@@ -18,7 +18,7 @@
 import AddEvent from './Object/addEvent.vue';
 import StatesEvent from './Object/statesEvent.vue';
 import ToDoList from './Object/toDoList.vue';
-
+import { Dialog } from 'vant';
 export default {
   name: 'Object',
   components: { AddEvent, StatesEvent, ToDoList },
@@ -50,7 +50,20 @@ export default {
       this.todos.forEach((todo) => {
         if (todo.id === id) todo.done = !todo.done
       })
-    }
+    },
+    //删除todo
+    del(id) {
+            Dialog.confirm({
+                title: '提示',
+                message: '这就走了?不爱我了吗?'
+            }).then(() => {
+                // 清空vuex和本地
+                this.todos = this.todos.filter(todo => todo.id !== id)
+            }).catch(() => {
+                // on cancel
+            })
+
+        }
   }
 }
 

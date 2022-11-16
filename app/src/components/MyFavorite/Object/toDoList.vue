@@ -4,7 +4,10 @@
             <toDoItem v-for="todoObj in todos" 
             :key="todoObj.id" 
             :todo="todoObj" 
-            :checkTodo="checkTodo"/>
+            :checkTodo="checkTodo"
+            :del="del"
+            />
+         
             <!-- <toDoItem />
             <toDoItem />
             <toDoItem /> -->
@@ -19,7 +22,7 @@ export default {
     name: 'toDoList',
     components: { toDoItem },
     //3.接收index传过来的数据todos
-    props:['todos','checkTodo']
+    props:['todos','checkTodo','del']
     //子传父 通过函数的方式  （vuex 全局事件总线 消息订阅发布 ）
     // data() {
     //     return {
