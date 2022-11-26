@@ -6,7 +6,7 @@
         <div class="todo-wrap">
           <addEvent :addTodo="addTodo" />
           <ToDoList :todos="todos" :checkTodo="checkTodo" :del="del"/>
-          <StatesEvent />
+          <StatesEvent :todos="todos"/>
         </div>
       </div>
     </div>
