@@ -1,7 +1,7 @@
 <template>
     <div>
         <van-cell-group>
-            <van-cell icon="fire" fixed>{{ item.title }} <a href="#" @click="clickHandler(item.id, $event)"> detail</a>
+            <van-cell icon="fire" fixed>{{ item.title }}
             </van-cell>
         </van-cell-group>
     </div>
@@ -29,9 +29,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.van-cell {
-    .div {
-        border-bottom: grey solid 1px
-    }
-}
+// .van-cell {
+//     .div {
+//         border-bottom: grey solid 1px
+//     }
+// }
 </style>
