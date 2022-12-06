@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { Notify } from "vant";
+// import { Notify } from "vant";
 import { nanoid } from 'nanoid'
 export default {
   name: 'addEvent',
