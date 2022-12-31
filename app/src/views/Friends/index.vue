@@ -1,13 +1,12 @@
 <template>
-    <div>
-        123
-    </div>
+    <van-nav-bar fixed>
+        
+    </van-nav-bar>
 </template>
 
 <script>
-
 export default {
-
+ 
 }
 </script>
 

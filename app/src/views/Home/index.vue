@@ -3,7 +3,7 @@
     <div>
       <van-nav-bar fixed>
         <template v-slot:left>
-          <img class="logo" src="@/assets/toutiao_logo.png" alt="" />
+          <img class="logo" src="@/assets/cudedark.jpg" alt="" />
         </template>
 
         <template #right>
@@ -175,8 +175,9 @@ export default {
 
 <style lang="less" scoped>
 .logo {
-  width: 100px;
-  height: 30px;
+  width: 60px;
+  height: 40px;
+  border-radius: 50%;
 }
 
 .main {

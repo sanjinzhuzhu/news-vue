@@ -4,10 +4,11 @@ import Login from '@/views/Login'
 import Layout from '@/views/Layout'
 import Home from '@/views/Home'
 import User from '@/views/User'
+import Friends from '@/views/Friends'
 import UserEditor from '@/views/User/UserEdit'
 import UserStudy from '@/components/UserStudy'
 import MyFavorite from '@/views/MyFavorite'
-import Study from '@/components/Study'
+import Study from '@/views/Study'
 import Search from '@/views/Search'
 import SearchResult from '@/views/Search/SearchResult'
 import ArticleDetail from '@/views/ArticleDetail'
@@ -35,6 +36,10 @@ const routes = [
       {
         path: 'user',
         component: User,
+      },
+      {
+        path: 'friends',
+        component: Friends,
       },
 
     ]
