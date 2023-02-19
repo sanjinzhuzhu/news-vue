@@ -175,7 +175,7 @@ export default {
 
 <style lang="less" scoped>
 .logo {
-  width: 60px;
+  width: 40px;
   height: 40px;
   border-radius: 50%;
 }
