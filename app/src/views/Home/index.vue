@@ -182,6 +182,7 @@ export default {
 
 .main {
   padding-top: 46px;
+  margin-top: -6px;
 }
 /* 设置 tabs 容器的样式 */
 /deep/ .van-tabs__wrap {
