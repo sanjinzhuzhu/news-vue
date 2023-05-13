@@ -182,12 +182,13 @@ export default {
 
 .main {
   padding-top: 46px;
-  margin-top: -6px;
+
 }
 /* 设置 tabs 容器的样式 */
 /deep/ .van-tabs__wrap {
   padding-right: 60px;
   background-color: #fff;
+  margin-top: -6px;
 }
 
 /* // 设置小图标的样式 */
